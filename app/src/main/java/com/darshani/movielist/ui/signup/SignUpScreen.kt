@@ -12,7 +12,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,13 +24,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.darshani.movielist.R
 import com.darshani.movielist.ui.components.HeaderText
 import com.darshani.movielist.ui.components.LoginTextField
 import com.darshani.movielist.ui.login.defaultPadding
@@ -52,8 +58,15 @@ fun SignUpScreen(
             email.isNotEmpty() && password.isNotEmpty() &&
             confirmPassword.isNotEmpty()
 
+//    Surface(
+//        color = Color.White,
+//        modifier = Modifier.fillMaxSize()
+//    ) {
+//
+//    }
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(defaultPadding),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -65,35 +78,36 @@ fun SignUpScreen(
             )
         }
         HeaderText(
-            text = "Sign Up",
-            modifier = Modifier.padding(vertical = defaultPadding)
+            text =  stringResource(id = R.string.sign_up),
+            modifier = Modifier
+                .padding(vertical = defaultPadding)
                 .align(alignment = Alignment.Start)
         )
         LoginTextField(
             value = firstName,
             onValueChange = onFirstNameChange,
-            labelText = "First Name",
-            modifier = Modifier.fillMaxWidth()
+            labelText =  stringResource(id = R.string.first_name),
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(defaultPadding))
         LoginTextField(
             value = lastName,
             onValueChange = onLastNameChange,
-            labelText = "Last Name",
+            labelText =  stringResource(id = R.string.last_name),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(defaultPadding))
         LoginTextField(
             value = email,
             onValueChange = onEmailChange,
-            labelText = "Email",
+            labelText =  stringResource(id = R.string.email),
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(defaultPadding))
         LoginTextField(
             value = password,
             onValueChange = onPasswordChange,
-            labelText = "Password",
+            labelText = stringResource(id = R.string.password),
             modifier = Modifier.fillMaxWidth(),
             keyboardType = KeyboardType.Password
         )
@@ -101,7 +115,7 @@ fun SignUpScreen(
         LoginTextField(
             value = confirmPassword,
             onValueChange = onConfirmPasswordChange,
-            labelText = "Confirm Password",
+            labelText =  stringResource(id = R.string.confirm_password),
             modifier = Modifier.fillMaxWidth(),
             keyboardType = KeyboardType.Password
         )
@@ -116,13 +130,13 @@ fun SignUpScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = isFieldsNotEmpty,
         ) {
-            Text("Sign Up")
+            Text(stringResource(id = R.string.sign_up))
         }
         Spacer(Modifier.height(defaultPadding))
         val singTx = "Sign In"
         val signInAnnotation = buildAnnotatedString {
             withStyle(SpanStyle(color = MaterialTheme.colorScheme.onBackground)) {
-                append("Already have an account?")
+                append(stringResource(id = R.string.already_have_acc),)
             }
             append("  ")
             withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary)) {
@@ -137,7 +151,7 @@ fun SignUpScreen(
         ) { offset ->
             signInAnnotation.getStringAnnotations(offset, offset).forEach {
                 if (it.tag == singTx) {
-                    Toast.makeText(context, "Sign in Clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Sign In", Toast.LENGTH_SHORT).show()
                     onLoginClick()
                 }
             }
